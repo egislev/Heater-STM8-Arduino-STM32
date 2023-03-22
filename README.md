@@ -1,1 +1,1 @@
-# Heater-STM8-Arduino-STM32
+Heater controll examples with various microcontrollers
