@@ -1,0 +1,4 @@
+/home/egis/ventmatika/Egidijus/stm8s003/src/CMakeFiles/rebuild_cache.dir
+/home/egis/ventmatika/Egidijus/stm8s003/src/CMakeFiles/edit_cache.dir
+/home/egis/ventmatika/Egidijus/stm8s003/src/CMakeFiles/flash.dir
+/home/egis/ventmatika/Egidijus/stm8s003/src/CMakeFiles/main.ihx.dir

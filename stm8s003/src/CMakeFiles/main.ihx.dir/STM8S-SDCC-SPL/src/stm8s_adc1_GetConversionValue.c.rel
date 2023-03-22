@@ -1,0 +1,37 @@
+XH3
+H B areas 2 global symbols
+M stm8s_adc1_GetConversionValue
+O -mstm8
+S .__.ABS. Def000000
+A _CODE size 0 flags 0 addr 0
+A DATA size 0 flags 0 addr 0
+A INITIALIZED size 0 flags 0 addr 0
+A DABS size 0 flags 8 addr 0
+A HOME size 0 flags 0 addr 0
+A GSINIT size 0 flags 0 addr 0
+A GSFINAL size 0 flags 0 addr 0
+A CONST size 0 flags 0 addr 0
+A INITIALIZER size 0 flags 0 addr 0
+A CODE size 40 flags 0 addr 0
+S _ADC1_GetConversionValue Def000000
+A CABS size 0 flags 8 addr 0
+T 00 00 00
+R 00 00 00 09
+T 00 00 00 52 08 C6 54 02 A5 08 27 15 C6 54 05 97
+R 00 00 00 09
+T 00 00 0D C6 54 04 0F 08 0F 05 1A 05 01 1A 08 97
+R 00 00 00 09
+T 00 00 1A 1F 03 20 1D
+R 00 00 00 09
+T 00 00 1E
+R 00 00 00 09
+T 00 00 1E C6 54 04 5F 97 51 C6 54 05 5F 97 58 58
+R 00 00 00 09
+T 00 00 2B 58 58 58 58 1F 01 7B 02 97 90 9F 1A 01
+R 00 00 00 09
+T 00 00 38 95 1F 03
+R 00 00 00 09
+T 00 00 3B
+R 00 00 00 09
+T 00 00 3B 1E 03 5B 08 81
+R 00 00 00 09

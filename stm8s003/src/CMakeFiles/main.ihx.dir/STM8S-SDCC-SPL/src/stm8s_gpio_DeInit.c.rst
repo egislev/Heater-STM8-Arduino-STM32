@@ -1,0 +1,73 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 3.8.0 #10562 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module stm8s_gpio_DeInit
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _GPIO_DeInit
+                                     12 ;--------------------------------------------------------
+                                     13 ; ram data
+                                     14 ;--------------------------------------------------------
+                                     15 	.area DATA
+                                     16 ;--------------------------------------------------------
+                                     17 ; ram data
+                                     18 ;--------------------------------------------------------
+                                     19 	.area INITIALIZED
+                                     20 ;--------------------------------------------------------
+                                     21 ; absolute external ram data
+                                     22 ;--------------------------------------------------------
+                                     23 	.area DABS (ABS)
+                                     24 
+                                     25 ; default segment ordering for linker
+                                     26 	.area HOME
+                                     27 	.area GSINIT
+                                     28 	.area GSFINAL
+                                     29 	.area CONST
+                                     30 	.area INITIALIZER
+                                     31 	.area CODE
+                                     32 
+                                     33 ;--------------------------------------------------------
+                                     34 ; global & static initialisations
+                                     35 ;--------------------------------------------------------
+                                     36 	.area HOME
+                                     37 	.area GSINIT
+                                     38 	.area GSFINAL
+                                     39 	.area GSINIT
+                                     40 ;--------------------------------------------------------
+                                     41 ; Home
+                                     42 ;--------------------------------------------------------
+                                     43 	.area HOME
+                                     44 	.area HOME
+                                     45 ;--------------------------------------------------------
+                                     46 ; code
+                                     47 ;--------------------------------------------------------
+                                     48 	.area CODE
+                                     49 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/STM8S-SDCC-SPL/src/stm8s_gpio_DeInit.c: 46: void GPIO_DeInit(GPIO_TypeDef* GPIOx)
+                                     50 ;	-----------------------------------------
+                                     51 ;	 function GPIO_DeInit
+                                     52 ;	-----------------------------------------
+      008441                         53 _GPIO_DeInit:
+                                     54 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/STM8S-SDCC-SPL/src/stm8s_gpio_DeInit.c: 48: GPIOx->ODR = GPIO_ODR_RESET_VALUE; /* Reset Output Data Register */
+      008441 16 03            [ 2]   55 	ldw	y, (0x03, sp)
+      008443 90 7F            [ 1]   56 	clr	(y)
+                                     57 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/STM8S-SDCC-SPL/src/stm8s_gpio_DeInit.c: 49: GPIOx->DDR = GPIO_DDR_RESET_VALUE; /* Reset Data Direction Register */
+      008445 93               [ 1]   58 	ldw	x, y
+      008446 5C               [ 1]   59 	incw	x
+      008447 5C               [ 1]   60 	incw	x
+      008448 7F               [ 1]   61 	clr	(x)
+                                     62 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/STM8S-SDCC-SPL/src/stm8s_gpio_DeInit.c: 50: GPIOx->CR1 = GPIO_CR1_RESET_VALUE; /* Reset Control Register 1 */
+      008449 93               [ 1]   63 	ldw	x, y
+      00844A 6F 03            [ 1]   64 	clr	(0x0003, x)
+                                     65 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/STM8S-SDCC-SPL/src/stm8s_gpio_DeInit.c: 51: GPIOx->CR2 = GPIO_CR2_RESET_VALUE; /* Reset Control Register 2 */
+      00844C 93               [ 1]   66 	ldw	x, y
+      00844D 6F 04            [ 1]   67 	clr	(0x0004, x)
+                                     68 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/STM8S-SDCC-SPL/src/stm8s_gpio_DeInit.c: 52: }
+      00844F 81               [ 4]   69 	ret
+                                     70 	.area CODE
+                                     71 	.area CONST
+                                     72 	.area INITIALIZER
+                                     73 	.area CABS (ABS)

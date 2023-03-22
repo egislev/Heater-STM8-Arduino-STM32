@@ -1,0 +1,340 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 3.8.0 #10562 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module main
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _main
+                                     12 	.globl _ADC_Read
+                                     13 	.globl _tick
+                                     14 	.globl _blink
+                                     15 	.globl _assert_failed
+                                     16 	.globl _CLK_HSIPrescalerConfig
+                                     17 	.globl _TIM1_GetCounter
+                                     18 	.globl _TIM1_Cmd
+                                     19 	.globl _TIM1_TimeBaseInit
+                                     20 	.globl _GPIO_WriteReverse
+                                     21 	.globl _GPIO_WriteLow
+                                     22 	.globl _GPIO_WriteHigh
+                                     23 	.globl _GPIO_Init
+                                     24 	.globl _GPIO_DeInit
+                                     25 	.globl _ADC1_ClearFlag
+                                     26 	.globl _ADC1_GetFlagStatus
+                                     27 	.globl _ADC1_GetConversionValue
+                                     28 	.globl _ADC1_StartConversion
+                                     29 	.globl _ADC1_Cmd
+                                     30 	.globl _ADC1_Init
+                                     31 	.globl _ADC1_DeInit
+                                     32 	.globl _adcval
+                                     33 	.globl _hoffcnt
+                                     34 	.globl _honcnt
+                                     35 	.globl _bcnt
+                                     36 	.globl _percents
+                                     37 ;--------------------------------------------------------
+                                     38 ; ram data
+                                     39 ;--------------------------------------------------------
+                                     40 	.area DATA
+      000000                         41 _percents::
+      000000                         42 	.ds 1
+                                     43 ;--------------------------------------------------------
+                                     44 ; ram data
+                                     45 ;--------------------------------------------------------
+                                     46 	.area INITIALIZED
+      000000                         47 _bcnt::
+      000000                         48 	.ds 1
+      000001                         49 _honcnt::
+      000001                         50 	.ds 1
+      000002                         51 _hoffcnt::
+      000002                         52 	.ds 1
+      000003                         53 _adcval::
+      000003                         54 	.ds 2
+                                     55 ;--------------------------------------------------------
+                                     56 ; Stack segment in internal ram 
+                                     57 ;--------------------------------------------------------
+                                     58 	.area	SSEG
+      000000                         59 __start__stack:
+      000000                         60 	.ds	1
+                                     61 
+                                     62 ;--------------------------------------------------------
+                                     63 ; absolute external ram data
+                                     64 ;--------------------------------------------------------
+                                     65 	.area DABS (ABS)
+                                     66 
+                                     67 ; default segment ordering for linker
+                                     68 	.area HOME
+                                     69 	.area GSINIT
+                                     70 	.area GSFINAL
+                                     71 	.area CONST
+                                     72 	.area INITIALIZER
+                                     73 	.area CODE
+                                     74 
+                                     75 ;--------------------------------------------------------
+                                     76 ; interrupt vector 
+                                     77 ;--------------------------------------------------------
+                                     78 	.area HOME
+      000000                         79 __interrupt_vect:
+      000000 82v00u00u00             80 	int s_GSINIT ; reset
+                                     81 ;--------------------------------------------------------
+                                     82 ; global & static initialisations
+                                     83 ;--------------------------------------------------------
+                                     84 	.area HOME
+                                     85 	.area GSINIT
+                                     86 	.area GSFINAL
+                                     87 	.area GSINIT
+      000000                         88 __sdcc_gs_init_startup:
+      000000                         89 __sdcc_init_data:
+                                     90 ; stm8_genXINIT() start
+      000000 AEr00r00         [ 2]   91 	ldw x, #l_DATA
+      000003 27 07            [ 1]   92 	jreq	00002$
+      000005                         93 00001$:
+      000005 72 4FuFFuFF      [ 1]   94 	clr (s_DATA - 1, x)
+      000009 5A               [ 2]   95 	decw x
+      00000A 26 F9            [ 1]   96 	jrne	00001$
+      00000C                         97 00002$:
+      00000C AEr00r00         [ 2]   98 	ldw	x, #l_INITIALIZER
+      00000F 27 09            [ 1]   99 	jreq	00004$
+      000011                        100 00003$:
+      000011 D6uFFuFF         [ 1]  101 	ld	a, (s_INITIALIZER - 1, x)
+      000014 D7uFFuFF         [ 1]  102 	ld	(s_INITIALIZED - 1, x), a
+      000017 5A               [ 2]  103 	decw	x
+      000018 26 F7            [ 1]  104 	jrne	00003$
+      00001A                        105 00004$:
+                                    106 ; stm8_genXINIT() end
+                                    107 	.area GSFINAL
+      000000 CCr00r04         [ 2]  108 	jp	__sdcc_program_startup
+                                    109 ;--------------------------------------------------------
+                                    110 ; Home
+                                    111 ;--------------------------------------------------------
+                                    112 	.area HOME
+                                    113 	.area HOME
+      000004                        114 __sdcc_program_startup:
+      000004 CCr00rB3         [ 2]  115 	jp	_main
+                                    116 ;	return from main will return to caller
+                                    117 ;--------------------------------------------------------
+                                    118 ; code
+                                    119 ;--------------------------------------------------------
+                                    120 	.area CODE
+                                    121 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 13: void	assert_failed (uint8_t* file, uint32_t line) {
+                                    122 ;	-----------------------------------------
+                                    123 ;	 function assert_failed
+                                    124 ;	-----------------------------------------
+      000000                        125 _assert_failed:
+                                    126 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 15: (void)line;
+                                    127 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 16: }
+      000000 81               [ 4]  128 	ret
+                                    129 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 18: void	blink	()
+                                    130 ;	-----------------------------------------
+                                    131 ;	 function blink
+                                    132 ;	-----------------------------------------
+      000001                        133 _blink:
+                                    134 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 20: if	(bcnt++ < 10) // 0.1 * 10
+      000001 C6u00u00         [ 1]  135 	ld	a, _bcnt+0
+      000004 72 5Cu00u00      [ 1]  136 	inc	_bcnt+0
+      000008 A1 0A            [ 1]  137 	cp	a, #0x0a
+      00000A 24 01            [ 1]  138 	jrnc	00102$
+                                    139 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 21: return;
+      00000C 81               [ 4]  140 	ret
+      00000D                        141 00102$:
+                                    142 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 22: bcnt = 0;
+      00000D 72 5Fu00u00      [ 1]  143 	clr	_bcnt+0
+                                    144 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 23: GPIO_WriteReverse (GPIOA,GPIO_PIN_1);
+      000011 4B 02            [ 1]  145 	push	#0x02
+      000013 4B 00            [ 1]  146 	push	#0x00
+      000015 4B 50            [ 1]  147 	push	#0x50
+      000017 CDr00r00         [ 4]  148 	call	_GPIO_WriteReverse
+      00001A 5B 03            [ 2]  149 	addw	sp, #3
+                                    150 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 24: }
+      00001C 81               [ 4]  151 	ret
+                                    152 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 26: void	tick ()
+                                    153 ;	-----------------------------------------
+                                    154 ;	 function tick
+                                    155 ;	-----------------------------------------
+      00001D                        156 _tick:
+      00001D 88               [ 1]  157 	push	a
+                                    158 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 28: if	(adcval < 5)	{ // ADC triuksmas
+      00001E CEu00u03         [ 2]  159 	ldw	x, _adcval+0
+      000021 A3 00 05         [ 2]  160 	cpw	x, #0x0005
+      000024 24 0D            [ 1]  161 	jrnc	00102$
+                                    162 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 29: GPIO_WriteLow (GPIOA,GPIO_PIN_2);
+      000026 4B 04            [ 1]  163 	push	#0x04
+      000028 4B 00            [ 1]  164 	push	#0x00
+      00002A 4B 50            [ 1]  165 	push	#0x50
+      00002C CDr00r00         [ 4]  166 	call	_GPIO_WriteLow
+      00002F 5B 03            [ 2]  167 	addw	sp, #3
+                                    168 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 30: return;
+      000031 20 47            [ 2]  169 	jra	00110$
+      000033                        170 00102$:
+                                    171 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 32: if	(!honcnt && !hoffcnt)
+      000033 72 5Du00u01      [ 1]  172 	tnz	_honcnt+0
+      000037 26 15            [ 1]  173 	jrne	00104$
+      000039 72 5Du00u02      [ 1]  174 	tnz	_hoffcnt+0
+      00003D 26 0F            [ 1]  175 	jrne	00104$
+                                    176 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 33: hoffcnt = 100 - (honcnt = percents);
+      00003F C6u00u00         [ 1]  177 	ld	a, _percents+0
+      000042 C7u00u01         [ 1]  178 	ld	_honcnt+0, a
+      000045 6B 01            [ 1]  179 	ld	(0x01, sp), a
+      000047 A6 64            [ 1]  180 	ld	a, #0x64
+      000049 10 01            [ 1]  181 	sub	a, (0x01, sp)
+      00004B C7u00u02         [ 1]  182 	ld	_hoffcnt+0, a
+      00004E                        183 00104$:
+                                    184 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 34: if	(honcnt)	{
+      00004E 72 5Du00u01      [ 1]  185 	tnz	_honcnt+0
+      000052 27 11            [ 1]  186 	jreq	00107$
+                                    187 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 35: GPIO_WriteHigh (GPIOA,GPIO_PIN_2);
+      000054 4B 04            [ 1]  188 	push	#0x04
+      000056 4B 00            [ 1]  189 	push	#0x00
+      000058 4B 50            [ 1]  190 	push	#0x50
+      00005A CDr00r00         [ 4]  191 	call	_GPIO_WriteHigh
+      00005D 5B 03            [ 2]  192 	addw	sp, #3
+                                    193 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 36: honcnt--;
+      00005F 72 5Au00u01      [ 1]  194 	dec	_honcnt+0
+                                    195 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 37: return;
+      000063 20 15            [ 2]  196 	jra	00110$
+      000065                        197 00107$:
+                                    198 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 39: if	(hoffcnt)	{
+      000065 72 5Du00u02      [ 1]  199 	tnz	_hoffcnt+0
+      000069 27 0F            [ 1]  200 	jreq	00110$
+                                    201 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 40: GPIO_WriteLow (GPIOA,GPIO_PIN_2);
+      00006B 4B 04            [ 1]  202 	push	#0x04
+      00006D 4B 00            [ 1]  203 	push	#0x00
+      00006F 4B 50            [ 1]  204 	push	#0x50
+      000071 CDr00r00         [ 4]  205 	call	_GPIO_WriteLow
+      000074 5B 03            [ 2]  206 	addw	sp, #3
+                                    207 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 41: hoffcnt--;
+      000076 72 5Au00u02      [ 1]  208 	dec	_hoffcnt+0
+      00007A                        209 00110$:
+                                    210 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 43: }
+      00007A 84               [ 1]  211 	pop	a
+      00007B 81               [ 4]  212 	ret
+                                    213 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 45: uint16_t ADC_Read (/* ADC_CHANNEL_TypeDef ADC_Channel_Number */)
+                                    214 ;	-----------------------------------------
+                                    215 ;	 function ADC_Read
+                                    216 ;	-----------------------------------------
+      00007C                        217 _ADC_Read:
+                                    218 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 49: ADC1_DeInit (); 
+      00007C CDr00r00         [ 4]  219 	call	_ADC1_DeInit
+                                    220 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 50: ADC1_Init(ADC1_CONVERSIONMODE_CONTINUOUS,
+      00007F 4B 00            [ 1]  221 	push	#0x00
+      000081 4B FF            [ 1]  222 	push	#0xff
+      000083 4B 08            [ 1]  223 	push	#0x08
+      000085 4B 00            [ 1]  224 	push	#0x00
+      000087 4B 00            [ 1]  225 	push	#0x00
+      000089 4B 70            [ 1]  226 	push	#0x70
+      00008B 4B 04            [ 1]  227 	push	#0x04
+      00008D 4B 01            [ 1]  228 	push	#0x01
+      00008F CDr00r00         [ 4]  229 	call	_ADC1_Init
+      000092 5B 08            [ 2]  230 	addw	sp, #8
+                                    231 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 58: ADC1_Cmd (ENABLE);
+      000094 4B 01            [ 1]  232 	push	#0x01
+      000096 CDr00r00         [ 4]  233 	call	_ADC1_Cmd
+      000099 84               [ 1]  234 	pop	a
+                                    235 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 60: ADC1_StartConversion ();
+      00009A CDr00r00         [ 4]  236 	call	_ADC1_StartConversion
+                                    237 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 61: while (ADC1_GetFlagStatus (ADC1_FLAG_EOC) == FALSE);
+      00009D                        238 00101$:
+      00009D 4B 80            [ 1]  239 	push	#0x80
+      00009F CDr00r00         [ 4]  240 	call	_ADC1_GetFlagStatus
+      0000A2 5B 01            [ 2]  241 	addw	sp, #1
+      0000A4 4D               [ 1]  242 	tnz	a
+      0000A5 27 F6            [ 1]  243 	jreq	00101$
+                                    244 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 62: result = ADC1_GetConversionValue ();
+      0000A7 CDr00r00         [ 4]  245 	call	_ADC1_GetConversionValue
+                                    246 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 63: ADC1_ClearFlag (ADC1_FLAG_EOC);
+      0000AA 4B 80            [ 1]  247 	push	#0x80
+      0000AC CDr00r00         [ 4]  248 	call	_ADC1_ClearFlag
+      0000AF 84               [ 1]  249 	pop	a
+                                    250 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 65: ADC1_DeInit ();
+                                    251 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 66: }
+      0000B0 CCr00r00         [ 2]  252 	jp	_ADC1_DeInit
+                                    253 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 68: void main	(void)
+                                    254 ;	-----------------------------------------
+                                    255 ;	 function main
+                                    256 ;	-----------------------------------------
+      0000B3                        257 _main:
+                                    258 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 70: CLK_HSIPrescalerConfig (CLK_PRESCALER_HSIDIV1);	// 16 Mhz
+      0000B3 4B 00            [ 1]  259 	push	#0x00
+      0000B5 CDr00r00         [ 4]  260 	call	_CLK_HSIPrescalerConfig
+      0000B8 84               [ 1]  261 	pop	a
+                                    262 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 71: GPIO_DeInit (GPIOA);
+      0000B9 4B 00            [ 1]  263 	push	#0x00
+      0000BB 4B 50            [ 1]  264 	push	#0x50
+      0000BD CDr00r00         [ 4]  265 	call	_GPIO_DeInit
+      0000C0 5B 02            [ 2]  266 	addw	sp, #2
+                                    267 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 72: GPIO_Init (GPIOA, GPIO_PIN_1, GPIO_MODE_OUT_OD_LOW_SLOW);
+      0000C2 4B 80            [ 1]  268 	push	#0x80
+      0000C4 4B 02            [ 1]  269 	push	#0x02
+      0000C6 4B 00            [ 1]  270 	push	#0x00
+      0000C8 4B 50            [ 1]  271 	push	#0x50
+      0000CA CDr00r00         [ 4]  272 	call	_GPIO_Init
+      0000CD 5B 04            [ 2]  273 	addw	sp, #4
+                                    274 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 73: GPIO_Init (GPIOA, GPIO_PIN_2, GPIO_MODE_OUT_OD_LOW_SLOW);
+      0000CF 4B 80            [ 1]  275 	push	#0x80
+      0000D1 4B 04            [ 1]  276 	push	#0x04
+      0000D3 4B 00            [ 1]  277 	push	#0x00
+      0000D5 4B 50            [ 1]  278 	push	#0x50
+      0000D7 CDr00r00         [ 4]  279 	call	_GPIO_Init
+      0000DA 5B 04            [ 2]  280 	addw	sp, #4
+                                    281 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 74: TIM1_TimeBaseInit (16000, TIM1_COUNTERMODE_UP, 16000, 1); // clock 1khz
+      0000DC 4B 01            [ 1]  282 	push	#0x01
+      0000DE 4B 80            [ 1]  283 	push	#0x80
+      0000E0 4B 3E            [ 1]  284 	push	#0x3e
+      0000E2 4B 00            [ 1]  285 	push	#0x00
+      0000E4 4B 80            [ 1]  286 	push	#0x80
+      0000E6 4B 3E            [ 1]  287 	push	#0x3e
+      0000E8 CDr00r00         [ 4]  288 	call	_TIM1_TimeBaseInit
+      0000EB 5B 06            [ 2]  289 	addw	sp, #6
+                                    290 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 75: ADC1_DeInit ();  // ??
+      0000ED CDr00r00         [ 4]  291 	call	_ADC1_DeInit
+                                    292 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 76: TIM1_Cmd (ENABLE);
+      0000F0 4B 01            [ 1]  293 	push	#0x01
+      0000F2 CDr00r00         [ 4]  294 	call	_TIM1_Cmd
+      0000F5 84               [ 1]  295 	pop	a
+                                    296 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 79: while	(TIM1_GetCounter() % 100);	// delay 0.1s
+      0000F6                        297 00101$:
+      0000F6 CDr00r00         [ 4]  298 	call	_TIM1_GetCounter
+      0000F9 90 AE 00 64      [ 2]  299 	ldw	y, #0x0064
+      0000FD 65               [ 2]  300 	divw	x, y
+      0000FE 90 5D            [ 2]  301 	tnzw	y
+      000100 26 F4            [ 1]  302 	jrne	00101$
+                                    303 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 80: adcval = ADC_Read ();
+      000102 CDr00r7C         [ 4]  304 	call	_ADC_Read
+                                    305 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 81: percents = (uint8_t) ((uint32_t)adcval * (uint32_t)100 / (uint32_t)1023);	// 10bit
+      000105 CFu00u03         [ 2]  306 	ldw	_adcval+0, x
+      000108 89               [ 2]  307 	pushw	x
+      000109 4B 64            [ 1]  308 	push	#0x64
+      00010B 4B 00            [ 1]  309 	push	#0x00
+      00010D CDr00r00         [ 4]  310 	call	___muluint2ulong
+      000110 5B 04            [ 2]  311 	addw	sp, #4
+      000112 4B FF            [ 1]  312 	push	#0xff
+      000114 4B 03            [ 1]  313 	push	#0x03
+      000116 4B 00            [ 1]  314 	push	#0x00
+      000118 4B 00            [ 1]  315 	push	#0x00
+      00011A 89               [ 2]  316 	pushw	x
+      00011B 90 89            [ 2]  317 	pushw	y
+      00011D CDr00r00         [ 4]  318 	call	__divulong
+      000120 5B 08            [ 2]  319 	addw	sp, #8
+      000122 9F               [ 1]  320 	ld	a, xl
+      000123 C7u00u00         [ 1]  321 	ld	_percents+0, a
+                                    322 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 82: blink ();
+      000126 CDr00r01         [ 4]  323 	call	_blink
+                                    324 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 83: tick ();
+      000129 CDr00r1D         [ 4]  325 	call	_tick
+      00012C 20 C8            [ 2]  326 	jra	00101$
+                                    327 ;	/home/egis/ventmatika/Egidijus/stm8s003/src/main.c: 85: }
+      00012E 81               [ 4]  328 	ret
+                                    329 	.area CODE
+                                    330 	.area CONST
+                                    331 	.area INITIALIZER
+      000000                        332 __xinit__bcnt:
+      000000 00                     333 	.db #0x00	; 0
+      000001                        334 __xinit__honcnt:
+      000001 00                     335 	.db #0x00	; 0
+      000002                        336 __xinit__hoffcnt:
+      000002 00                     337 	.db #0x00	; 0
+      000003                        338 __xinit__adcval:
+      000003 00 00                  339 	.dw #0x0000
+                                    340 	.area CABS (ABS)

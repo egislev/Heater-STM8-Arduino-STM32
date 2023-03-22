@@ -1,0 +1,7 @@
+main.c:65:6:process_tick	6
+main.c:84:6:blink	2
+main.c:98:5:main	1
+main.c:148:6:SystemClock_Config	3
+main.c:186:13:MX_ADC_Init	3
+main.c:240:13:MX_GPIO_Init	1
+main.c:282:6:Error_Handler	1

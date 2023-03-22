@@ -1,0 +1,59 @@
+The target system is: Generic -  - 
+The host system is: Linux - 5.15.0-67-generic - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/sdcc 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.asm"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.ihx"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.lk"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.lst"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.map"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.mem"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.rel"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.rst"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.sym"
+
+The C compiler identification is SDCC, found in "/home/egis/ventmatika/Egidijus/stm8s003/src/CMakeFiles/3.16.3/CompilerIdC/CMakeCCompilerId.asm"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /home/egis/ventmatika/Egidijus/stm8s003/src/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_a5e7f/fast && /usr/bin/make -f CMakeFiles/cmTC_a5e7f.dir/build.make CMakeFiles/cmTC_a5e7f.dir/build
+make[1]: Entering directory '/home/egis/ventmatika/Egidijus/stm8s003/src/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_a5e7f.dir/testCCompiler.c.rel
+/usr/bin/sdcc    -o CMakeFiles/cmTC_a5e7f.dir/testCCompiler.c.rel -c /home/egis/ventmatika/Egidijus/stm8s003/src/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_a5e7f.ihx
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a5e7f.dir/link.txt --verbose=1
+/usr/bin/sdcc   CMakeFiles/cmTC_a5e7f.dir/testCCompiler.c.rel -o cmTC_a5e7f.ihx    
+make[1]: Leaving directory '/home/egis/ventmatika/Egidijus/stm8s003/src/CMakeFiles/CMakeTmp'
+
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /home/egis/ventmatika/Egidijus/stm8s003/src/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_6d53d/fast && /usr/bin/make -f CMakeFiles/cmTC_6d53d.dir/build.make CMakeFiles/cmTC_6d53d.dir/build
+make[1]: Entering directory '/home/egis/ventmatika/Egidijus/stm8s003/src/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_6d53d.dir/CMakeCCompilerABI.c.rel
+/usr/bin/sdcc    -o CMakeFiles/cmTC_6d53d.dir/CMakeCCompilerABI.c.rel -c /usr/share/cmake-3.16/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_6d53d.ihx
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6d53d.dir/link.txt --verbose=1
+/usr/bin/sdcc   CMakeFiles/cmTC_6d53d.dir/CMakeCCompilerABI.c.rel -o cmTC_6d53d.ihx    
+make[1]: Leaving directory '/home/egis/ventmatika/Egidijus/stm8s003/src/CMakeFiles/CMakeTmp'
+
+
+
